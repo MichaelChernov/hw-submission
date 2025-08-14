@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbitmq-consumer
+  namespace: default
+  labels:
+    app: rabbitmq-consumer
+spec:
+  selector:
+    matchLabels:
+      app: rabbitmq-consumer
+  template:
+    metadata:
+      labels:
+        app: rabbitmq-consumer
+    spec:
+      containers:
+        - name: rabbitmq-consumer
+          image: ghcr.io/kedacore/rabbitmq-client:v1.0
+          imagePullPolicy: Always
+          command:
+            - receive
+          args:
+            - "amqp://guest:guest@rabbitmq-service.default.svc.cluster.local:5672"

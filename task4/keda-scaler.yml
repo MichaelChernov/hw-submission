@@ -1,0 +1,17 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: rabbitmq-consumer
+  namespace: default
+spec:
+  scaleTargetRef:
+    name: rabbitmq-consumer
+  pollingInterval: 5
+  cooldownPeriod: 30
+  maxReplicaCount: 10
+  triggers:
+    - type: rabbitmq
+      metadata:
+        host: "amqp://guest:guest@rabbitmq-service.default.svc.cluster.local:5672"
+        queueName: hello
+        queueLength: "5"
