@@ -6,9 +6,11 @@ metadata:
 spec:
   scaleTargetRef:
     name: rabbitmq-consumer
+    kind: StatefulSet
+    apiVersion: apps/v1
   pollingInterval: 5
   cooldownPeriod: 30
-  maxReplicaCount: 10
+  maxReplicaCount: 5
   triggers:
     - type: rabbitmq
       metadata:
